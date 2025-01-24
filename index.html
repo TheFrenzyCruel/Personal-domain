@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cruel - Portfolio</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --stars-small: '';
+      --stars-medium: '';
+      --stars-big: '';
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #000;
+      color: white;
+      overflow: hidden;
+    }
+
+    .container {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse at bottom, #20063B 0%, #0C0118 100%);
+    }
+
+    /* Nebula Effect */
+    .nebula {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .nebula::before,
+    .nebula::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200%;
+      height: 200%;
+      transform: translate(-50%, -50%);
+      animation: nebulaMove 60s linear infinite;
+      background-image: 
+        radial-gradient(circle at 30% 40%, rgba(147, 51, 234, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 60%);
+      filter: blur(60px);
+    }
+
+    .nebula::after {
+      animation-direction: reverse;
+      animation-duration: 45s;
+      opacity: 0.7;
+      background-image: 
+        radial-gradient(circle at 60% 30%, rgba(147, 51, 234, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 70%);
+    }
+
+    @keyframes nebulaMove {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) rotate(180deg) scale(1.1);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg) scale(1);
+      }
+    }
+
+    @keyframes animStar {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-3000px);
+      }
+    }
+
+    .stars {
+      width: 1px;
+      height: 1px;
+      background: transparent;
+      box-shadow: var(--stars-small);
+      animation: animStar 200s linear infinite;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .stars::after {
+      content: " ";
+      position: absolute;
+      top: 3000px;
+      width: 1px;
+      height: 1px;
+      background: transparent;
+      box-shadow: var(--stars-small);
+    }
+
+    .stars-medium {
+      width: 2px;
+      height: 2px;
+      box-shadow: var(--stars-medium);
+      animation: animStar 300s linear infinite;
+    }
+
+    .stars-medium::after {
+      width: 2px;
+      height: 2px;
+      box-shadow: var(--stars-medium);
+    }
+
+    .stars-big {
+      width: 3px;
+      height: 3px;
+      box-shadow: var(--stars-big);
+      animation: animStar 400s linear infinite;
+    }
+
+    .stars-big::after {
+      width: 3px;
+      height: 3px;
+      box-shadow: var(--stars-big);
+    }
+
+    .content {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .card {
+      background: rgba(16, 1, 28, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 3rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                  0 0 0 1px rgba(255, 255, 255, 0.1);
+      width: 100%;
+      max-width: 32rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(100px);
+      animation: cardEntrance 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes cardEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(100px);
+      }
+      30% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(147, 51, 234, 0.1),
+        rgba(59, 130, 246, 0.1),
+        transparent
+      );
+      transform-origin: center;
+      animation: rotateGradient 8s linear infinite;
+    }
+
+    @keyframes rotateGradient {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7),
+                  0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin: 0 0 0.5rem 0;
+      background: linear-gradient(135deg, #9333EA, #3B82F6);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientMove 3s ease infinite alternate;
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+        filter: drop-shadow(0 0 2px rgba(147, 51, 234, 0.3));
+      }
+      100% {
+        background-position: 100% 50%;
+        filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+      }
+    }
+
+    .title {
+      font-size: 1.25rem;
+      color: #d1d5db;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      margin: 1.5rem auto;
+      background: linear-gradient(to right, #9333EA, #3B82F6);
+      background-size: 200% 100%;
+      border-radius: 3px;
+      animation: gradientFlow 2s linear infinite;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
+    }
+
+    .about {
+      color: #d1d5db;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+      font-size: 1.05rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.75rem;
+      background: rgba(147, 51, 234, 0.1);
+      color: white;
+      text-decoration: none;
+      border-radius: 0.75rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(147, 51, 234, 0.2),
+        rgba(59, 130, 246, 0.2),
+        transparent
+      );
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .button:hover::before {
+      transform: translateX(0);
+      animation: buttonGradient 2s linear infinite;
+    }
+
+    @keyframes buttonGradient {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(50%); }
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 10px 20px -10px rgba(147, 51, 234, 0.5);
+    }
+
+    .button:active {
+      transform: translateY(0);
+    }
+
+    .icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      transition: transform 0.3s ease;
+    }
+
+    .button:hover .icon {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="nebula"></div>
+    <div class="stars"></div>
+    <div class="stars stars-medium"></div>
+    <div class="stars stars-big"></div>
+    <div class="content">
+      <div class="card">
+        <h1>Cruel (@frenzy_cruel)</h1>
+        <p class="title">Programmer</p>
+        <div class="divider"></div>
+        <p class="about">
+            I'm a programmer specializing in JavaScript, Python, Lua, and Html, focused on creating custom tools.
+          <br><br>
+          Feel free to reach out but please, only for important or relevant inquiries.
+        </p>
+        <div class="buttons">
+            <a href="mailto:frenzy_cruel@outlook.com" class="button">
+              <i data-lucide="mail" class="icon"></i>
+              <span>Email</span>
+            </a>
+            <a href="https://github.com/TheFrenzyCruel" target="_blank" rel="noopener noreferrer" class="button">
+              <i data-lucide="github" class="icon"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="https://discord.com/users/1142376325307445260" target="_blank" rel="noopener noreferrer" class="button">
+              <i data-lucide="message-circle" class="icon"></i>
+              <span>Discord</span>
+            </a>
+            <a href="https://www.roblox.com/users/2002674843/profile" target="_blank" rel="noopener noreferrer" class="button">
+              <i data-lucide="gamepad-2" class="icon"></i>
+              <span>Roblox</span>
+            </a>
+            <a href="https://www.tiktok.com/@frenzy.cruel" target="_blank" rel="noopener noreferrer" class="button">
+              <i data-lucide="film" class="icon"></i>
+              <span>TikTok</span>
+            </a>
+            <a href="https://www.youtube.com/@therealfrenzycruel" target="_blank" rel="noopener noreferrer" class="button">
+              <i data-lucide="youtube" class="icon"></i>
+              <span>YouTube</span>
+            </a>
+          </div>          
+      </div>
+    </div>
+  </div>
+  <script>
+    lucide.createIcons();
+    
+    // Generate star box shadows with more space-like distribution
+    function generateStars(count) {
+      let stars = [];
+      for (let i = 0; i < count; i++) {
+        // Create clusters of stars with more empty space between them
+        const cluster = Math.random() < 0.3;
+        let x, y;
+        
+        if (cluster) {
+          // Create a cluster point
+          const clusterX = Math.random() * window.innerWidth;
+          const clusterY = Math.random() * 3000;
+          // Add stars around the cluster point
+          x = clusterX + (Math.random() - 0.5) * 100;
+          y = clusterY + (Math.random() - 0.5) * 100;
+        } else {
+          // Create isolated stars
+          x = Math.random() * window.innerWidth;
+          y = Math.random() * 3000;
+        }
+        
+        // Add purple and blue tint to stars
+        const brightness = Math.floor(Math.random() * 30) + 225;
+        const purpleTint = Math.floor(Math.random() * 20);
+        const blueTint = Math.floor(Math.random() * 20);
+        const color = `rgba(${brightness}, ${brightness - purpleTint}, ${brightness + blueTint}, ${Math.random() * 0.7 + 0.3})`;
+        
+        stars.push(`${Math.floor(x)}px ${Math.floor(y)}px ${color}`);
+      }
+      return stars.join(', ');
+    }
+
+    // Set star variables with different densities for each layer
+    document.documentElement.style.setProperty('--stars-small', generateStars(700));
+    document.documentElement.style.setProperty('--stars-medium', generateStars(200));
+    document.documentElement.style.setProperty('--stars-big', generateStars(100));
+  </script>
+</body>
+</html>
