@@ -35,7 +35,6 @@
       background: radial-gradient(ellipse at bottom, #20063B 0%, #0C0118 100%);
     }
 
-    /* Nebula Effect */
     .nebula {
       position: fixed;
       top: 0;
@@ -408,28 +407,22 @@
   <script>
     lucide.createIcons();
     
-    // Generate star box shadows with more space-like distribution
     function generateStars(count) {
       let stars = [];
       for (let i = 0; i < count; i++) {
-        // Create clusters of stars with more empty space between them
         const cluster = Math.random() < 0.3;
         let x, y;
         
         if (cluster) {
-          // Create a cluster point
           const clusterX = Math.random() * window.innerWidth;
           const clusterY = Math.random() * 3000;
-          // Add stars around the cluster point
           x = clusterX + (Math.random() - 0.5) * 100;
           y = clusterY + (Math.random() - 0.5) * 100;
         } else {
-          // Create isolated stars
           x = Math.random() * window.innerWidth;
           y = Math.random() * 3000;
         }
-        
-        // Add purple and blue tint to stars
+    
         const brightness = Math.floor(Math.random() * 30) + 225;
         const purpleTint = Math.floor(Math.random() * 20);
         const blueTint = Math.floor(Math.random() * 20);
@@ -440,7 +433,6 @@
       return stars.join(', ');
     }
 
-    // Set star variables with different densities for each layer
     document.documentElement.style.setProperty('--stars-small', generateStars(700));
     document.documentElement.style.setProperty('--stars-medium', generateStars(200));
     document.documentElement.style.setProperty('--stars-big', generateStars(100));
